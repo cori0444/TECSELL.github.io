@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TESELL | Inventario</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         PANTALLA DE LOGIN
+    ========================================== -->
+
+    <section id="loginScreen" class="login-screen">
+
+        <div class="login-card">
+
+            <div class="login-logo">
+                <img src="TECSELL.png" alt="Logo de TECSELL">
+                
+            </div>
+
+            <h1>Bienvenido</h1>
+
+            <p class="login-description">
+                Acceso exclusivo para empleados
+            </p>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Usuario
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Ingresa tu usuario"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Contraseña
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Ingresa tu contraseña"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+                    Iniciar sesión
+                </button>
+
+                <p
+                    id="loginError"
+                    class="login-error"
+                ></p>
+
+            </form>
+
+            <div class="demo-account">
+                <span>Acceso de demostración</span>
+
+                <strong>
+                    empleado / 1234
+                </strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         APLICACIÓN
+    ========================================== -->
+
+    <div id="app" class="app hidden">
+
+
+        <!-- =====================================
+             HEADER
+        ====================================== -->
+
+        <header class="header">
+
+            <div class="header-container">
+
+                <div class="brand">
+                    <img src="TECSELL.png" alt="Logo de TECSELL">
+
+                </div>
+
+
+                <div class="header-user">
+
+                    <div class="user-info">
+
+                        <span class="user-icon">
+                            👤
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Empleado
+                            </strong>
+
+                            <small>
+                                Acceso autorizado
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        id="logoutButton"
+                        class="logout-button"
+                    >
+                        Cerrar sesión
+                    </button>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================
+             CONTENIDO PRINCIPAL
+        ====================================== -->
+
+        <main class="main-container">
+
+
+            <!-- HERO -->
+
+            <section class="hero">
+
+                <div class="hero-content">
+
+                    <span class="hero-label">
+                        SISTEMA DE INVENTARIO
+                    </span>
+
+                    <h1>
+                        Inventario
+                    </h1>
+
+                    <p>
+                        Consulta todos los productos disponibles,
+                        revisa el stock y filtra el inventario
+                        de manera rápida y sencilla.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 ESTADÍSTICAS
+            ====================================== -->
+
+            <section class="statistics">
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon blue">
+                        📦
+                    </div>
+
+                    <div class="stat-content">
+
+                        <span>
+                            Total de productos
+                        </span>
+
+                        <strong id="totalProducts">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon orange">
+                        ⚠️
+                    </div>
+
+                    <div class="stat-content">
+
+                        <span>
+                            Stock menor a 10
+                        </span>
+
+                        <strong id="lowStock">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon cyan">
+                        💰
+                    </div>
+
+                    <div class="stat-content">
+
+                        <span>
+                            Precio mayor a $1500
+                        </span>
+
+                        <strong id="highPrice">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+            </section>
+
+
+            <!-- =====================================
+                 INVENTARIO
+            ====================================== -->
+
+            <section class="inventory-card">
+
+
+                <div class="inventory-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            PRODUCTOS
+                        </span>
+
+                        <h2>
+                            Inventario disponible
+                        </h2>
+
+                        <p>
+                            Consulta y filtra los productos
+                            registrados en TESELL.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     CONTROLES
+                ================================== -->
+
+                <div class="controls">
+
+
+                    <!-- BUSCADOR -->
+
+                    <div class="search-container">
+
+                        <span class="search-icon">
+                            🔎
+                        </span>
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Buscar producto..."
+                        >
+
+                    </div>
+
+
+                    <!-- FILTRO -->
+
+                    <div class="filter-container">
+
+                        <select id="filterSelect">
+
+                            <option value="all">
+                                Todo el inventario
+                            </option>
+
+                            <option value="stock10">
+                                Stock menor a 10 piezas
+                            </option>
+
+                            <option value="stock20">
+                                Stock menor a 20 piezas
+                            </option>
+
+                            <option value="priceHigh">
+                                Precio mayor a $1500
+                            </option>
+
+                            <option value="priceLow">
+                                Precio menor a $1500
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- LIMPIAR -->
+
+                    <button
+                        id="clearButton"
+                        class="clear-button"
+                    >
+                        Limpiar
+                    </button>
+
+
+                </div>
+
+
+                <!-- =================================
+                     TABLA
+                ================================== -->
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    #
+                                </th>
+
+                                <th>
+                                    Producto
+                                </th>
+
+                                <th>
+                                    Categoría
+                                </th>
+
+                                <th>
+                                    Precio
+                                </th>
+
+                                <th>
+                                    Stock
+                                </th>
+
+                                <th>
+                                    Estado
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="inventoryBody">
+                            <!-- JS genera los productos -->
+                        </tbody>
+
+                    </table>
+
+
+                    <!-- SIN RESULTADOS -->
+
+                    <div
+                        id="noResults"
+                        class="no-results hidden"
+                    >
+
+                        <div class="no-results-icon">
+                            📦
+                        </div>
+
+                        <h3>
+                            No se encontraron productos
+                        </h3>
+
+                        <p>
+                            Intenta cambiar el filtro
+                            o el texto de búsqueda.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="resultsCount"
+                    class="results-count"
+                >
+                    Mostrando 0 productos
+                </div>
+
+
+            </section>
+
+        </main>
+
+
+        <!-- =====================================
+             FOOTER
+        ====================================== -->
+
+        <footer class="footer">
+
+            <div class="footer-content">
+
+                <div class="footer-brand">
+                    <img src="TECSELL.png" alt="Logo de TECSELL">
+                </div>
+
+                <p>
+                    Sistema de inventario
+                    · Proyecto Final Unidad 2
+                </p>
+
+                <p>
+                    © 2026 TECSELL
+                </p>
+
+            </div>
+
+        </footer>
+
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
